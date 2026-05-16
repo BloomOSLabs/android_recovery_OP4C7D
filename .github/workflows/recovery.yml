@@ -1,4 +1,5 @@
-name: Recovery Lunch Validation
+```yaml
+name: Build Lineage Recovery
 
 on:
   push:
@@ -8,60 +9,124 @@ on:
   workflow_dispatch:
 
 jobs:
-  recovery-validation:
-    runs-on: ubuntu-latest
+  build-recovery:
+    runs-on: ubuntu-22.04
+
+    env:
+      ROM_BRANCH: lineage-16.0
+      DEVICE_CODENAME: OP4C7Drecovery
+      OUT_DIR: out/lineage
 
     steps:
-      - name: Free Disk Space
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Aggressive Disk Cleanup
         run: |
           sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache
           sudo rm -rf /usr/local/share/boost
-          sudo apt clean
+          sudo rm -rf /opt/google
+          sudo rm -rf /usr/share/swift
+          sudo rm -rf /usr/local/.ghcup
+          sudo rm -rf /opt/az
+          sudo rm -rf /usr/lib/jvm
+
+          sudo docker system prune -af || true
+          sudo apt clean || true
+
+          df -h
 
       - name: Install Dependencies
         run: |
           sudo apt update
+
           sudo apt install -y \
-            git-core \
-            gnupg \
-            flex \
+            git \
+            curl \
+            python2-minimal \
+            bc \
             bison \
             build-essential \
-            zip \
-            curl \
-            zlib1g-dev \
-            gcc-multilib \
+            ccache \
+            flex \
             g++-multilib \
-            libc6-dev-i386 \
-            lib32ncurses-dev \
-            x11proto-core-dev \
-            libx11-dev \
+            gcc-multilib \
+            gnupg \
+            gperf \
+            imagemagick \
+            lib32ncurses5-dev \
+            lib32readline-dev \
             lib32z1-dev \
-            libgl1-mesa-dev \
+            liblz4-tool \
+            libncurses5-dev \
+            libsdl1.2-dev \
+            libssl-dev \
+            libxml2 \
             libxml2-utils \
+            lzop \
+            pngcrush \
+            rsync \
+            schedtool \
+            squashfs-tools \
             xsltproc \
-            unzip \
-            python-is-python3 \
-            openjdk-11-jdk \
-            imagemagick
+            zip \
+            zlib1g-dev \
+            openjdk-8-jdk \
+            wget
+
+          sudo update-alternatives --set java \
+            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+          sudo update-alternatives --set javac \
+            /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
+
+      - name: Fix Python Compatibility
+        run: |
+          sudo ln -sf /usr/bin/python2 /usr/bin/python || true
+
+      - name: Install ncurses5 compatibility libraries
+        run: |
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb
+          wget http://archive.ubuntu.com/ubuntu/pool/universe/n/ncurses/libncurses5_6.3-2ubuntu0.1_amd64.deb
+
+          sudo dpkg -i libtinfo5_6.3-2ubuntu0.1_amd64.deb
+          sudo dpkg -i libncurses5_6.3-2ubuntu0.1_amd64.deb
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git config --global gc.auto 0
 
       - name: Setup Repo Tool
         run: |
           mkdir -p ~/bin
+
           curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+
           chmod a+x ~/bin/repo
+
           echo "$HOME/bin" >> $GITHUB_PATH
 
-      - name: Initialize LOS16 Source
+      - name: Initialize LineageOS Source
         run: |
-          mkdir lineage
-          cd lineage
-          repo init -u https://github.com/LineageOS/android.git -b lineage-16.0
+          mkdir android
+          cd android
+
+          repo init \
+            -u https://github.com/LineageOS/android.git \
+            -b $ROM_BRANCH \
+            --depth=1 \
+            --partial-clone \
+            --clone-filter=blob:limit=10M
 
       - name: Create Local Manifest
         run: |
-          cd lineage
+          cd android
+
           mkdir -p .repo/local_manifests
 
           cat > .repo/local_manifests/roomservice.xml <<EOF
@@ -77,28 +142,64 @@ jobs:
           </manifest>
           EOF
 
-      - name: Sync Sources
+      - name: Repo Sync
         run: |
-          cd lineage
-          repo sync -c --no-clone-bundle --no-tags -j4
+          cd android
 
-      - name: Lunch Recovery
-        shell: bash
+          repo sync \
+            --force-sync \
+            --no-clone-bundle \
+            --no-tags \
+            --current-branch \
+            -j4
+
+      - name: Patch Legacy LOS16 Overlay Issue
         run: |
-          cd lineage
-          source build/envsetup.sh
-          lunch lineage_OP4C7Drecovery-eng
+          cd android
+
+          sed -i '/OverlayHostTests/d' \
+            frameworks/base/packages/overlays/Android.mk
+
+      - name: Setup CCache
+        run: |
+          export USE_CCACHE=1
+          export CCACHE_EXEC=$(which ccache)
+
+          ccache -M 5G
+          ccache -o compression=true
 
       - name: Build Recovery Image
         shell: bash
         run: |
-          cd lineage
+          cd android
+
+          export OUT_DIR=out/lineage
+          export USE_CCACHE=1
+          export CCACHE_EXEC=$(which ccache)
+
           source build/envsetup.sh
+
           lunch lineage_OP4C7Drecovery-eng
-          make recoveryimage -j$(nproc)
+
+          mka recoveryimage -j2
+
+      - name: Verify Output
+        run: |
+          cd android
+
+          ls -lh \
+            out/lineage/target/product/${DEVICE_CODENAME}/
+
+          test -f \
+            out/lineage/target/product/${DEVICE_CODENAME}/recovery.img
 
       - name: Upload Recovery Image
         uses: actions/upload-artifact@v4
         with:
-          name: recoveryimage
-          path: lineage/out/target/product/OP4C7Drecovery/recovery.img
+          name: recoveryimage-${{ env.DEVICE_CODENAME }}
+          path: |
+            android/out/lineage/target/product/${{ env.DEVICE_CODENAME }}/recovery.img
+            android/out/lineage/target/product/${{ env.DEVICE_CODENAME }}/ramdisk-recovery.img
+          if-no-files-found: error
+```
+
