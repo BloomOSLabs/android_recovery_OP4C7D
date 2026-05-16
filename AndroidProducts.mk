@@ -1,5 +1,5 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_OP4C7Drecovery.mk
+    $(LOCAL_DIR)/lineage_OP4C7D.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_OP4C7Drecovery-eng
+    lineage_OP4C7D-eng

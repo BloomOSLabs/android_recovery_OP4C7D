@@ -1,4 +1,4 @@
-DEVICE_PATH := device/oppo/OP4C7Drecovery
+DEVICE_PATH := device/oppo/OP4C7D
 
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
