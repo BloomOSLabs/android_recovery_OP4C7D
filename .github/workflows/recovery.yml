@@ -1,4 +1,3 @@
-```yaml
 name: Build Lineage Recovery
 
 on:
@@ -201,5 +200,3 @@ jobs:
             android/out/lineage/target/product/${{ env.DEVICE_CODENAME }}/recovery.img
             android/out/lineage/target/product/${{ env.DEVICE_CODENAME }}/ramdisk-recovery.img
           if-no-files-found: error
-```
-
