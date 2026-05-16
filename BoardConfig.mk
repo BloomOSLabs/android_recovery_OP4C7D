@@ -22,6 +22,7 @@ BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive an
 
 BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/system/etc/fstab.mt6765
 
