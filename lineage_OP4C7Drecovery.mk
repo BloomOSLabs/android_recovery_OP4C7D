@@ -1,4 +1,4 @@
-LOCAL_PATH := device/oppo/OP4C7D-recovery
+LOCAL_PATH := device/oppo/OP4C7Drecovery
 
 PRODUCT_DEVICE := OP4C7Drecovery
 PRODUCT_NAME := lineage_OP4C7Drecovery
