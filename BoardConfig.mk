@@ -24,6 +24,13 @@ BOARD_INCLUDE_RECOVERY_DTBO := true
 BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 
+BOARD_ROOT_EXTRA_FOLDERS += \
+    vendor \
+    vendor/lib64 \
+    vendor/lib64/hw \
+    system_root \
+    system_root/system
+
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/system/etc/fstab.mt6765
 
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"

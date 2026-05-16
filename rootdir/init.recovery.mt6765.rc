@@ -5,6 +5,8 @@ on fs
     setprop sys.usb.ffs.aio_compat 1
 
     write /sys/class/power_supply/usb/otg_switch 1
+    
+    export ANDROID_ROOT /system_root
 
 on init
     export PATH /sbin:/system/bin
