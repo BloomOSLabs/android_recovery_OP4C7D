@@ -170,15 +170,13 @@ jobs:
           ccache -M 5G
           ccache -o compression=true
           
-      - name: Prepare Recovery Root Structure
+      - name: Prepare Output Recovery Root
         run: |
-          cd android/device/oppo/OP4C7Drecovery
-
-          mkdir -p recovery/root/sbin
-          mkdir -p recovery/root/dev
-          mkdir -p recovery/root/proc
-          mkdir -p recovery/root/sys
-          mkdir -p recovery/root/tmp
+          mkdir -p android/out/lineage/target/product/OP4C7Drecovery/recovery/root/sbin
+          mkdir -p android/out/lineage/target/product/OP4C7Drecovery/recovery/root/dev
+          mkdir -p android/out/lineage/target/product/OP4C7Drecovery/recovery/root/proc
+          mkdir -p android/out/lineage/target/product/OP4C7Drecovery/recovery/root/sys
+          mkdir -p android/out/lineage/target/product/OP4C7Drecovery/recovery/root/tmp
 
       - name: Build Recovery Image
         shell: bash
