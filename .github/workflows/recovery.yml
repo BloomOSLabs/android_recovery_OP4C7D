@@ -156,10 +156,11 @@ jobs:
         run: |
           cd android
 
-          grep -Ril "OverlayHostTests_BadSignatureOverlay" . | while read file; do
-            echo "Patching $file"
-            sed -i '/OverlayHostTests/d' "$file"
-          done
+          sed -i '/OverlayHostTests/d' \
+            frameworks/base/core/tests/overlaytests/host/Android.mk
+
+          sed -i '/OverlayHostTests_BadSignatureOverlay/d' \
+            frameworks/base/core/tests/overlaytests/host/test-apps/SignatureOverlay/Android.mk
 
       - name: Setup CCache
         run: |
