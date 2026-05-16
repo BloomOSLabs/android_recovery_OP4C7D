@@ -1,0 +1,2 @@
+on init
+    export PATH /sbin:/system/sbin:/system/bin:/system/xbin
