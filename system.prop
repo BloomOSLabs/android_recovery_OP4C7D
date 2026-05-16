@@ -1,0 +1,13 @@
+ro.treble.enabled=true
+
+ro.product.cpu.abilist=arm64-v8a,armeabi-v7a,armeabi
+ro.product.cpu.abilist32=armeabi-v7a,armeabi
+ro.product.cpu.abilist64=arm64-v8a
+
+ro.product.first_api_level=28
+
+ro.board.platform=mt6765
+ro.product.board=oppo6765_19581
+
+persist.sys.usb.config=adb
+sys.usb.config=adb

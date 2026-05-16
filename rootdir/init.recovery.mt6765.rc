@@ -1,4 +1,5 @@
 on fs
+    symlink /system_root/system /system
     symlink /dev/block/platform/bootdevice/by-name /dev/block/by-name
 
     setprop sys.usb.ffs.aio_compat 1
