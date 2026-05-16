@@ -43,7 +43,8 @@ jobs:
             xsltproc \
             unzip \
             python-is-python3 \
-            openjdk-11-jdk
+            openjdk-11-jdk \
+            imagemagick
 
       - name: Setup Repo Tool
         run: |
