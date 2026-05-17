@@ -11,3 +11,22 @@ ro.product.board=oppo6765_19581
 
 persist.sys.usb.config=adb
 sys.usb.config=adb
+
+ro.sf.lcd_density=270
+persist.sys.oppo.displaymetrics=720,1600
+sys.oppo.multibrightness=2047
+
+ro.lcd.backlight.hlt_nvt=11,954,13,347,514,787,1042,1303,1504,1732,1971,2047
+
+ro.sys.usb.storage.type=mtp
+ro.sys.usb.charging.only=yes
+ro.sys.usb.bicr=no
+
+qemu.hw.mainkeys=0
+
+ro.opengles.version=196610
+
+ro.build.description=full_oppo6765_19581-user 9 PPR1.180610.011 eng.root.20211115.152708 release-keys
+
+ro.expect.recovery_id=0xbfeda1cc7be2f04640d91dcbba0ca6d45b0949e9000000000000000000000000
+
