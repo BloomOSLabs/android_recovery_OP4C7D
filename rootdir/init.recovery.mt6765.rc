@@ -6,6 +6,27 @@ on fs
     setprop sys.usb.ffs.aio_compat 1
     write /sys/class/power_supply/usb/otg_switch 1
     export ANDROID_ROOT /system_root
+    
+    # ADB related operations
+    mount configfs none /config
+    
+    mkdir /dev/usb-ffs 0770 shell shell
+    mkdir /dev/usb-ffs/adb 0770 shell shell
+    
+    mkdir /config/usb_gadget/g1 0770 shell shell
+    mkdir /config/usb_gadget/g1/strings/0x409 0770 shell shell
+    mkdir /config/usb_gadget/g1/functions/ffs.adb 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1 0770 shell shell
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
+    
+on early-init
+
+    # Try to start Graphics service early
+    start hwservicemanager
+    start servicemanager
+    start vendor.graphics-composer
+    start vendor.graphics-allocator
 
 on init
 
@@ -24,22 +45,49 @@ on init
     symlink /sbin/gatekeeper.mt6765.so /vendor/lib64/hw/gatekeeper.mt6765.so
     symlink /sbin/mcRegistry /vendor/app/mcRegistry
 
-    start hwservicemanager
-    start servicemanager
+    chmod 0660 /dev/graphics/fb0
+    chown system graphics /dev/graphics/fb0
+
+    chmod 0660 /dev/mtk_disp_mgr
+    chown system graphics /dev/mtk_disp_mgr
+
+    chmod 0660 /dev/sw_sync
+    chown system graphics /dev/sw_sync
+
+    chmod 0666 /dev/mali0
+
+    write /sys/class/graphics/fb0/blank 0
+    write /sys/class/backlight/panel0-backlight/bl_power 0
+    write /sys/class/backlight/panel0-backlight/brightness 954
 
     setprop crypto.ready 1
     
 on boot
-    write /sys/class/graphics/fb0/blank 0
-
-    write /sys/class/backlight/panel0-backlight/bl_power 0
-    write /sys/class/backlight/panel0-backlight/brightness 954
 
     setprop persist.sys.brightness.mode 1
     setprop sys.oppo.multibrightness 2047
-
-    start vendor.graphics-composer
-    start vendor.graphics-allocator
+    
+    # Start ADB
+    setprop sys.usb.configfs 1
+    setprop sys.usb.ffs.aio_compat 1
+    setprop vendor.usb.controller "musb-hdrc"
+    
+    write /config/usb_gadget/g1/idVendor 0x22d9
+    write /config/usb_gadget/g1/idProduct 0x2769
+    write /config/usb_gadget/g1/bcdDevice 0x0223
+    write /config/usb_gadget/g1/bcdUSB 0x0200
+    write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
+    write /config/usb_gadget/g1/strings/0x409/manufacturer "OPPO"
+    write /config/usb_gadget/g1/strings/0x409/product "OP4C7D Recovery"
+    
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
+    
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    
+    write /config/usb_gadget/g1/UDC ${vendor.usb.controller}
+    
+    setprop sys.usb.config adb
+    start adbd
 
 service logd /sbin/logd
     user root
@@ -76,14 +124,12 @@ service vendor.graphics-composer /vendor/bin/hw/android.hardware.graphics.compos
     class hal
     user system
     group graphics drmrpc
-    disabled
     oneshot
 
 service vendor.graphics-allocator /vendor/bin/hw/android.hardware.graphics.allocator@2.0-service
     class hal
     user system
     group graphics
-    disabled
     oneshot
 
 on property:crypto.ready=0
