@@ -9,16 +9,37 @@ on fs
 
 on init
 
-    mkdir /vendor/lib64 0700 root root
-    mkdir /vendor/lib64/hw 0700 root root
+    export PATH /sbin:/system/bin
+    export LD_LIBRARY_PATH /sbin
+
+    mkdir /vendor 0755 root root
+    mkdir /vendor/bin 0755 root root
+    mkdir /vendor/bin/hw 0755 root root
+    mkdir /vendor/lib64 0755 root root
+    mkdir /vendor/lib64/hw 0755 root root
+    mkdir /vendor/app 0755 root root
+
     symlink /vendor/manifest.xml /system_root/system/manifest.xml
     symlink /sbin/keystore.mt6765.so /vendor/lib64/hw/keystore.mt6765.so
-    symlink /sbin/mcRegistry /vendor/app/mcRegistry
     symlink /sbin/gatekeeper.mt6765.so /vendor/lib64/hw/gatekeeper.mt6765.so
+    symlink /sbin/mcRegistry /vendor/app/mcRegistry
 
     start hwservicemanager
     start servicemanager
+
     setprop crypto.ready 1
+    
+on boot
+    write /sys/class/graphics/fb0/blank 0
+
+    write /sys/class/backlight/panel0-backlight/bl_power 0
+    write /sys/class/backlight/panel0-backlight/brightness 954
+
+    setprop persist.sys.brightness.mode 1
+    setprop sys.oppo.multibrightness 2047
+
+    start vendor.graphics-composer
+    start vendor.graphics-allocator
 
 service logd /sbin/logd
     user root
@@ -50,6 +71,20 @@ service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
     group root
     disabled
     seclabel u:r:recovery:s0
+    
+service vendor.graphics-composer /vendor/bin/hw/android.hardware.graphics.composer@2.1-service
+    class hal
+    user system
+    group graphics drmrpc
+    disabled
+    oneshot
+
+service vendor.graphics-allocator /vendor/bin/hw/android.hardware.graphics.allocator@2.0-service
+    class hal
+    user system
+    group graphics
+    disabled
+    oneshot
 
 on property:crypto.ready=0
     stop keymaster-3-0
