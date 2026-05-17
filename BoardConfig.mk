@@ -38,13 +38,6 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 33554432
 BOARD_DTBOIMG_PARTITION_SIZE := 16777216
 
-BOARD_ROOT_EXTRA_FOLDERS += \
-    vendor \
-    vendor/lib64 \
-    vendor/lib64/hw \
-    system_root \
-    system_root/system
-
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/system/etc/fstab.mt6765
 
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"

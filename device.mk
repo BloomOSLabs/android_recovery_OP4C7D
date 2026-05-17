@@ -1,4 +1,4 @@
-LOCAL_PATH := device/oppo/OP4C7D
+LOCAL_PATH := $(call my-dir)
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.recovery.mt6765.rc:root/init.recovery.mt6765.rc \
@@ -22,7 +22,8 @@ PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/system_root,root/system_root) \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.gatekeeper@1.0-service:root/sbin/android.hardware.gatekeeper@1.0-service \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0-service:root/sbin/android.hardware.keymaster@3.0-service \
-    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service
+    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/vendor/app,root/vendor/app)
 
 PRODUCT_PACKAGES += \
     recovery \
