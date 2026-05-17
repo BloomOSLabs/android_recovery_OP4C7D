@@ -17,7 +17,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/gatekeeper.mt6765.so:root/sbin/gatekeeper.mt6765.so \
     $(LOCAL_PATH)/recovery/root/sbin/keystore.mt6765.so:root/sbin/keystore.mt6765.so \
     $(LOCAL_PATH)/recovery/root/sbin/libTEECommon.so:root/sbin/libTEECommon.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libpuresoftkeymasterdevice.so:root/sbin/libpuresoftkeymasterdevice.so
+    $(LOCAL_PATH)/recovery/root/sbin/libpuresoftkeymasterdevice.so:root/sbin/libpuresoftkeymasterdevice.so \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/vendor,root/vendor) \
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/system_root,root/system_root) \
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.gatekeeper@1.0-service:root/sbin/android.hardware.gatekeeper@1.0-service \
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0-service:root/sbin/android.hardware.keymaster@3.0-service \
+    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service
 
 PRODUCT_PACKAGES += \
     recovery \
