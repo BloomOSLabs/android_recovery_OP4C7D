@@ -1,4 +1,4 @@
-LOCAL_PATH := $(call my-dir)
+LOCAL_PATH := device/oppo/OP4C7D
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
 
