@@ -1,4 +1,4 @@
-/dev/block/platform/bootdevice/by-name/system           /                           ext4     ro           wait,recoveryonly,async_discard
+/dev/block/platform/bootdevice/by-name/system           /                ext4     ro           wait,recoveryonly,async_discard
 /dev/block/platform/bootdevice/by-name/vendor           /vendor                     ext4     ro           wait,recoveryonly,async_discard
 /dev/block/platform/bootdevice/by-name/odm              /odm                        ext4     ro           wait,recoveryonly,async_discard
 /dev/block/platform/bootdevice/by-name/cache            /cache                      ext4     noatime,nosuid,nodev,noauto_da_alloc,async_discard       wait,check,formattable
