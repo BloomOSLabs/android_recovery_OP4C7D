@@ -32,3 +32,6 @@ ro.expect.recovery_id=0xbfeda1cc7be2f04640d91dcbba0ca6d45b0949e90000000000000000
 
 ro.minui.default_rotation=0
 ro.recovery.ui.renderer=fbdev
+
+# Add maintainer branding
+ro.modversion=16.0-UNOFFICIAL-OP4C7D | Maintained by Stanly
