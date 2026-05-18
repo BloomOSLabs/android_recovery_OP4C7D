@@ -31,8 +31,7 @@ PRODUCT_PACKAGES += \
     toybox \
     toolbox \
     adbd \
-    fastbootd \
-    logcat
+    fastbootd
 
 PRODUCT_CHARACTERISTICS := nosdcard
 

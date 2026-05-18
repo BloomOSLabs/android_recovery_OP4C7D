@@ -33,5 +33,10 @@ ro.expect.recovery_id=0xbfeda1cc7be2f04640d91dcbba0ca6d45b0949e90000000000000000
 ro.minui.default_rotation=0
 ro.recovery.ui.renderer=fbdev
 
-# Add maintainer branding
-ro.modversion=16.0-UNOFFICIAL-OP4C7D | Maintained by Stanly
+# Add maintainer and OS brandings
+ro.modversion=BloomOS Recovery for OP4C7D
+ro.bloomos.version=16.0
+ro.build.display.id=BloomOS Recovery
+ro.build.user=Stanly
+ro.build.host=BloomOS
+ro.lineage.display.version=BloomOS Recovery 16.0 | By Stanly | 20260518
