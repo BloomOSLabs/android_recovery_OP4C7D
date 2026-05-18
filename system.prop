@@ -30,3 +30,5 @@ ro.build.description=full_oppo6765_19581-user 9 PPR1.180610.011 eng.root.2021111
 
 ro.expect.recovery_id=0xbfeda1cc7be2f04640d91dcbba0ca6d45b0949e9000000000000000000000000
 
+ro.minui.default_rotation=0
+ro.recovery.ui.renderer=fbdev
