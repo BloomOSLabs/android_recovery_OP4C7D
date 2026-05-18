@@ -14,3 +14,9 @@ PRODUCT_MANUFACTURER := OPPO
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     TARGET_DEVICE=OP4C7D
+    
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.lineage.version=BLoomOS-Recovery-16.0-Stanly-20260518
+    
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.build.display.id=BloomOS-Recovery
