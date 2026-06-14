@@ -145,8 +145,17 @@ jobs:
 
           repo sync \
             --force-sync \
-            --current-branch \
             -j4
+
+      - name: Debug Skia
+        run: |
+          cd android
+      
+          echo "Checking external/skia"
+      
+          ls -lah external/ | grep skia || true
+      
+          find . -name Android.bp | xargs grep -n "skia_deps" || true
 
       - name: Setup CCache
         run: |
