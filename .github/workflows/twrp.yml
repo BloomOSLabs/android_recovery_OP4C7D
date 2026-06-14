@@ -118,9 +118,7 @@ jobs:
           repo init \
             -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni \
             -b $BRANCH \
-            --depth=1 \
-            --partial-clone \
-            --clone-filter=blob:limit=10M
+            --depth=1
 
       - name: Create Local Manifest
         run: |
@@ -147,8 +145,6 @@ jobs:
 
           repo sync \
             --force-sync \
-            --no-clone-bundle \
-            --no-tags \
             --current-branch \
             -j4
 
