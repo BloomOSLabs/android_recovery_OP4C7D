@@ -136,7 +136,7 @@ jobs:
                   name="${{ github.repository }}"
                   path="device/oppo/OP4C7D"
                   remote="github"
-                  revision="@{{ github.ref_name }}" />
+                  revision="twrp-9.0" />
 
           </manifest>
           EOF
