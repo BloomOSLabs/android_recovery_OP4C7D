@@ -142,7 +142,7 @@ jobs:
         run: |
           cd android
 
-          repo sync
+          repo sync --force-sync -j$(nproc --all)
 
       - name: Debug Skia
         run: |
