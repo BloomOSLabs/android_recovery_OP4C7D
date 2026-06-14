@@ -116,9 +116,8 @@ jobs:
           cd android
 
           repo init \
-            -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni \
-            -b $BRANCH \
-            --depth=1
+            -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git \
+            -b $BRANCH
 
       - name: Create Local Manifest
         run: |
@@ -143,9 +142,7 @@ jobs:
         run: |
           cd android
 
-          repo sync \
-            --force-sync \
-            -j4
+          repo sync
 
       - name: Debug Skia
         run: |
@@ -173,6 +170,8 @@ jobs:
           export OUT_DIR=out/twrp
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
+
+          export ALLOW_MISSING_DEPENDENCIES=true
 
           source build/envsetup.sh
 
