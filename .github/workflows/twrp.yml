@@ -144,16 +144,6 @@ jobs:
 
           repo sync --force-sync -j$(nproc --all)
 
-      - name: Debug Skia
-        run: |
-          cd android
-      
-          echo "Checking external/skia"
-      
-          ls -lah external/ | grep skia || true
-      
-          find . -name Android.bp | xargs grep -n "skia_deps" || true
-
       - name: Setup CCache
         run: |
           export USE_CCACHE=1
@@ -170,8 +160,6 @@ jobs:
           export OUT_DIR=out/twrp
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
-
-          export ALLOW_MISSING_DEPENDENCIES=true
 
           source build/envsetup.sh
 
