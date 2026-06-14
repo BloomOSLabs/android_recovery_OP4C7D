@@ -34,10 +34,8 @@ ro.minui.default_rotation=0
 ro.recovery.ui.renderer=fbdev
 
 # Add maintainer and OS brandings
-ro.modversion=BloomOS Recovery for OP4C7D
+ro.modversion=TWRP Recovery for OP4C7D
 ro.bloomos.version=16.0
 ro.build.display.id=BloomOS Recovery
 ro.build.user=Stanly
 ro.build.host=BloomOS
-ro.lineage.display.version=BloomOS 16.0 | By Stanly | 20260518
-ro.lineage.version=BloomOS 16.0 | By Stanly | 20260518

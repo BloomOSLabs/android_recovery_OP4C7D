@@ -1,9 +1,9 @@
-name: Build Lineage Recovery
+name: Build TWRP Recovery for OP4C7D
 
 on:
   push:
     branches:
-      - lineage-16.0
+      - twrp-9.0
 
   workflow_dispatch:
 
@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     env:
-      ROM_BRANCH: lineage-16.0
+      BRANCH: twrp-9.0
       DEVICE_CODENAME: OP4C7D
-      OUT_DIR: out/lineage
+      OUT_DIR: out/twrp
 
     steps:
       - name: Checkout Repository
@@ -110,14 +110,14 @@ jobs:
 
           echo "$HOME/bin" >> $GITHUB_PATH
 
-      - name: Initialize LineageOS Source
+      - name: Initialize TWRP Source
         run: |
           mkdir android
           cd android
 
           repo init \
-            -u https://github.com/LineageOS/android.git \
-            -b $ROM_BRANCH \
+            -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni \
+            -b $BRANCH \
             --depth=1 \
             --partial-clone \
             --clone-filter=blob:limit=10M
@@ -136,7 +136,7 @@ jobs:
                   name="${{ github.repository }}"
                   path="device/oppo/OP4C7D"
                   remote="github"
-                  revision="lineage-16.0" />
+                  revision="@{{ github.ref_name }}" />
 
           </manifest>
           EOF
@@ -152,16 +152,6 @@ jobs:
             --current-branch \
             -j4
 
-      - name: Patch Legacy LOS16 Overlay Issue
-        run: |
-          cd android
-
-          sed -i '/OverlayHostTests/d' \
-            frameworks/base/core/tests/overlaytests/host/Android.mk
-
-          sed -i '/OverlayHostTests_BadSignatureOverlay/d' \
-            frameworks/base/core/tests/overlaytests/host/test-apps/SignatureOverlay/Android.mk
-
       - name: Setup CCache
         run: |
           export USE_CCACHE=1
@@ -170,44 +160,36 @@ jobs:
           ccache -M 5G
           ccache -o compression=true
           
-      - name: Prepare Output Recovery Root
-        run: |
-          mkdir -p android/out/lineage/target/product/OP4C7D/recovery/root/sbin
-          mkdir -p android/out/lineage/target/product/OP4C7D/recovery/root/dev
-          mkdir -p android/out/lineage/target/product/OP4C7D/recovery/root/proc
-          mkdir -p android/out/lineage/target/product/OP4C7D/recovery/root/sys
-          mkdir -p android/out/lineage/target/product/OP4C7D/recovery/root/tmp
-
       - name: Build Recovery Image
         shell: bash
         run: |
           cd android
 
-          export OUT_DIR=out/lineage
+          export OUT_DIR=out/twrp
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
 
           source build/envsetup.sh
 
-          lunch lineage_OP4C7D-eng
+          lunch omni_OP4C7D-eng
 
-          mka recoveryimage -j2
+          mka recoveryimage
 
       - name: Verify Output
         run: |
           cd android
 
           ls -lh \
-            out/lineage/target/product/${DEVICE_CODENAME}/
+            out/twrp/target/product/${DEVICE_CODENAME}/
 
           test -f \
-            out/lineage/target/product/${DEVICE_CODENAME}/recovery.img
+            out/twrp/target/product/${DEVICE_CODENAME}/recovery.img
 
       - name: Upload Recovery Image
         uses: actions/upload-artifact@v4
         with:
           name: recoveryimage-${{ env.DEVICE_CODENAME }}
           path: |
-            android/out/lineage/target/product/${{ env.DEVICE_CODENAME }}/recovery.img
-            android/out/lineage/target/product/${{ env.DEVICE_CODENAME }}/ramdisk-recovery.img
+            android/out/twrp/target/product/${{ env.DEVICE_CODENAME }}/recovery.img
+            android/out/twrp/target/product/${{ env.DEVICE_CODENAME }}/ramdisk-recovery.img
           if-no-files-found: error
