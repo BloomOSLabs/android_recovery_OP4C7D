@@ -100,7 +100,12 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 DEVICE_MATRIX_FILE += $(DEVICE_PATH)/compatibility_matrix.xml
 
 # VINTF
+TW_NO_VINTF := true
+PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
+
+# Manifest
 DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+
 
 # TWRP
 TW_THEME := portrait_hdpi
