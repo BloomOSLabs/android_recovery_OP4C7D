@@ -169,6 +169,12 @@ jobs:
             -b android-9.0 \
             external/busybox
 
+          rm -rf bootable/recovery/gui/theme
+            
+          git clone \
+            https://gitlab.com/OrangeFox/misc/theme.git \
+            bootable/recovery/gui/theme  
+
       - name: Setup CCache
         run: |
           export USE_CCACHE=1
