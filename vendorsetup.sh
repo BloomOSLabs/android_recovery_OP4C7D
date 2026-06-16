@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export FOX_BUILD_TYPE="Experimental"
+export FOX_MAINTAINER="Stanly"
+
+export OF_NO_TREBLE_COMPATIBILITY_CHECK=1
+
+export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
