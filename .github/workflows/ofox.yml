@@ -1,4 +1,4 @@
-name: Build OrangeFox Recovery for OP4C7D
+name: Build OrangeFox 10 Recovery for OP4C7D
 
 on:
   push:
@@ -74,7 +74,8 @@ jobs:
             zip \
             zlib1g-dev \
             openjdk-8-jdk \
-            wget
+            wget \
+            patch
 
           sudo update-alternatives --set java \
             /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
@@ -144,6 +145,16 @@ jobs:
 
           repo sync --force-sync -j$(nproc --all)
 
+      - name: Apply OrangeFox fox_10 patches
+        run: |
+          cd android/build
+      
+          wget \
+            https://gitlab.com/OrangeFox/sync/-/raw/master/patch-manifest-fox_10.0.diff \
+            -O fox10.patch
+      
+          patch -p1 < fox10.patch
+
       - name: Replace TWRP With OrangeFox
         run: |
           cd android
@@ -159,15 +170,8 @@ jobs:
       
           git clone \
             https://gitlab.com/OrangeFox/vendor/recovery.git \
-            -b legacy \
+            -b fox_10.0 \
             vendor/recovery
-      
-          rm -rf external/busybox
-      
-          git clone \
-            https://gitlab.com/OrangeFox/external/busybox.git \
-            -b android-10.0 \
-            external/busybox
 
           rm -rf bootable/recovery/gui/theme
             
@@ -192,9 +196,9 @@ jobs:
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
 
-          export OF_NO_TREBLE_COMPATIBILITY_CHECK=1
-
           source build/envsetup.sh
+
+          export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
 
           lunch omni_OP4C7D-eng
 
