@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "VENDORSETUP LOADED"
+
 export FOX_BUILD_TYPE="Experimental"
 export FOX_MAINTAINER="Stanly"
 

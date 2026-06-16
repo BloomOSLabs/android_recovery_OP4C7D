@@ -1,4 +1,4 @@
-name: Build OrangeFox Recovery for OP4C7D
+name: Build OrangeFox 9 Recovery for OP4C7D
 
 on:
   push:
@@ -192,9 +192,23 @@ jobs:
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
 
+          echo "===== BEFORE ====="
+          env | grep FOX
+
           source build/envsetup.sh
 
+          echo "===== AFTER ====="
+          env | grep FOX
+
+          echo "===== VENDORSETUP ====="
+          env | grep FOX
+
           source device/oppo/OP4C7D/vendorsetup.sh
+
+          export OF_NO_TREBLE_COMPATIBILITY_CHECK=1
+
+          echo "===== LUNCH ====="
+          env | grep FOX
 
           lunch omni_OP4C7D-eng
 
