@@ -100,10 +100,10 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
 # Compatibility Matrix
-DEVICE_MATRIX_FILE += $(DEVICE_PATH)/compatibility_matrix.xml
+# DEVICE_MATRIX_FILE += $(DEVICE_PATH)/compatibility_matrix.xml
 
 # Manifest
-DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
+# DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
 
 
 # TWRP
