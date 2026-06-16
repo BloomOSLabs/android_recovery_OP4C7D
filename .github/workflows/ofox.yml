@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     env:
-      BRANCH: twrp-10.0
+      BRANCH: twrp-10.0-deprecated
       DEVICE_CODENAME: OP4C7D
       OUT_DIR: out/ofox
 
@@ -191,6 +191,8 @@ jobs:
           export OUT_DIR=out/ofox
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
+
+          export OF_NO_TREBLE_COMPATIBILITY_CHECK=1
 
           source build/envsetup.sh
 
