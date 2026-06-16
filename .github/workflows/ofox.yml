@@ -194,6 +194,8 @@ jobs:
 
           source build/envsetup.sh
 
+          source device/oppo/OP4C7D/vendorsetup.sh
+
           lunch omni_OP4C7D-eng
 
           mka adbd recoveryimage
