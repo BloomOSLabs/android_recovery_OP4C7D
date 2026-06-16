@@ -198,7 +198,7 @@ jobs:
 
           source build/envsetup.sh
 
-          export FOX_USE_TWRP_RECOVERY_IMAGE_BUILDER=1
+          source device/oppo/OP4C7D/vendorsetup.sh
 
           lunch omni_OP4C7D-eng
 
