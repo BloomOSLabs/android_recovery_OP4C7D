@@ -1,4 +1,4 @@
-name: Build OrangeFox 9 Recovery for OP4C7D
+name: Build OrangeFox Recovery for OP4C7D
 
 on:
   push:
@@ -193,12 +193,10 @@ jobs:
           export CCACHE_EXEC=$(which ccache)
 
           echo "===== BEFORE ====="
-          env | grep FOX
 
           source build/envsetup.sh
 
           echo "===== AFTER ====="
-          env | grep FOX
 
           echo "===== VENDORSETUP ====="
           env | grep FOX
