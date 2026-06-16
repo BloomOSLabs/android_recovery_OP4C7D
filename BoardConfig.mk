@@ -18,7 +18,7 @@ TARGET_2ND_CPU_VARIANT_RUNTIME := generic
 TARGET_SUPPORTS_64_BIT_APPS := true
 ALLOW_MISSING_DEPENDENCIES := true
 
-# Assert
+# OTA
 TARGET_OTA_ASSERT_DEVICE := CPH2015, CPH2081, OP4C7D
 
 # APEX
@@ -113,7 +113,8 @@ TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 560
 TW_BRIGHTNESS_PATH := /sys/class/leds/lcd-backlight/brightness
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone1/temp
-TW_USE_TOOLBOX := true
+TW_USE_TOOLBOX := false
+TW_INCLUDE_BUSYBOX := true
 TW_NO_SCREEN_BLANK := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_NO_BATT_PERCENT := false
@@ -121,8 +122,13 @@ TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_SUPERSU := true
 TW_SKIP_COMPATIBILITY_CHECK := true
 
+# Disables the strict Treble compatibility matrix check during sideload
+TW_EXCLUDE_TREBLE_TESTS := true
+# Prevents the recovery from checking standard zip compatibility zip structures
+TW_NO_TREBLE_COMPATIBILITY_CHECK := true
+
+
 # OrangeFox
-OF_NO_TREBLE_COMPATIBILITY_CHECK := 1
 FOX_VANILLA_BUILD := 1
 OF_NO_ADDITIONAL_MIUI_PROPS_CHECK := 1
 OF_TWRP_COMPATIBILITY_MODE := 1
