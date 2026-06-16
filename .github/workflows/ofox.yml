@@ -150,7 +150,7 @@ jobs:
           cd android/build
       
           wget \
-            https://gitlab.com/OrangeFox/sync/-/raw/master/patch-manifest-fox_10.0.diff \
+            https://gitlab.com/OrangeFox/sync/-/raw/master/legacy/patches/patch-manifest-fox_10.0.diff \
             -O fox10.patch
       
           patch -p1 < fox10.patch
