@@ -13,9 +13,9 @@ ro.mediatek.platform=MT6765
 
 persist.sys.usb.config=adb
 sys.usb.config=adb
-ro.debuggable=0
 ro.adb.secure=1
 ro.secure=1
+ro.service.adb.root=1
 
 ro.sf.lcd_density=320
 persist.sys.oppo.displaymetrics=720,1600
