@@ -5,7 +5,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_minimal.mk)
 $(call inherit-product, $(LOCAL_PATH)/device.mk)
 
 PRODUCT_DEVICE := OP4C7D
-PRODUCT_NAME := omni_OP4C7D
+PRODUCT_NAME := twrp_OP4C7D
 PRODUCT_BRAND := OPPO
 PRODUCT_MODEL := CPH2015
 PRODUCT_MANUFACTURER := OPPO

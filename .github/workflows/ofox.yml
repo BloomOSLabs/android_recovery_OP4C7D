@@ -3,16 +3,16 @@ name: Build OrangeFox Recovery for OP4C7D
 on:
   push:
     branches:
-      - fox_9.0
+      - fox_12.1
 
   workflow_dispatch:
 
 jobs:
   build-recovery:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     env:
-      BRANCH: twrp-9.0
+      BRANCH: twrp-12.1
       DEVICE_CODENAME: OP4C7D
       OUT_DIR: out/ofox
 
@@ -45,7 +45,7 @@ jobs:
           sudo apt install -y \
             git \
             curl \
-            python2-minimal \
+            python3 \
             bc \
             bison \
             build-essential \
@@ -73,18 +73,14 @@ jobs:
             xsltproc \
             zip \
             zlib1g-dev \
-            openjdk-8-jdk \
+            openjdk-11-jdk \
             wget
 
           sudo update-alternatives --set java \
-            /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+            /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
           sudo update-alternatives --set javac \
-            /usr/lib/jvm/java-8-openjdk-amd64/bin/javac
-
-      - name: Fix Python Compatibility
-        run: |
-          sudo ln -sf /usr/bin/python2 /usr/bin/python || true
+            /usr/lib/jvm/java-11-openjdk-amd64/bin/javac
 
       - name: Install ncurses5 compatibility libraries
         run: |
@@ -110,14 +106,19 @@ jobs:
 
           echo "$HOME/bin" >> $GITHUB_PATH
 
-      - name: Initialize TWRP minimal Source
+      - name: Clone OrangeFox sync repo
         run: |
-          mkdir android
-          cd android
+          git clone https://gitlab.com/OrangeFox/sync.git
 
-          repo init \
-            -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_omni.git \
-            -b $BRANCH
+      - name: Run OrangeFox sync script
+        run: |
+          cd sync
+          
+          chmod +x orangefox_sync.sh
+          
+          ./orangefox_sync.sh \
+            --branch 12.1 \
+            --path $GITHUB_WORKSPACE/android
 
       - name: Create Local Manifest
         run: |
@@ -133,47 +134,10 @@ jobs:
                   name="${{ github.repository }}"
                   path="device/oppo/OP4C7D"
                   remote="github"
-                  revision="fox_9.0" />
+                  revision="fox_12.1" />
 
           </manifest>
           EOF
-
-      - name: Repo Sync
-        run: |
-          cd android
-
-          repo sync --force-sync -j$(nproc --all)
-
-      - name: Replace TWRP With OrangeFox
-        run: |
-          cd android
-      
-          rm -rf bootable/recovery
-      
-          git clone \
-            https://gitlab.com/OrangeFox/bootable/Recovery.git \
-            -b fox_9.0 \
-            bootable/recovery
-      
-          rm -rf vendor/recovery
-      
-          git clone \
-            https://gitlab.com/OrangeFox/vendor/recovery.git \
-            -b legacy \
-            vendor/recovery
-      
-          rm -rf external/busybox
-      
-          git clone \
-            https://gitlab.com/OrangeFox/external/busybox.git \
-            -b android-9.0 \
-            external/busybox
-
-          rm -rf bootable/recovery/gui/theme
-            
-          git clone \
-            https://gitlab.com/OrangeFox/misc/theme.git \
-            bootable/recovery/gui/theme  
 
       - name: Setup CCache
         run: |
@@ -192,26 +156,9 @@ jobs:
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
 
-          echo "===== BEFORE ====="
-
           source build/envsetup.sh
 
-          echo "===== AFTER ====="
-
-          echo "===== VENDORSETUP ====="
-          
-          source device/oppo/OP4C7D/vendorsetup.sh
-          
-          env | grep FOX
-          env | grep OF
-
-          echo "OF_NO_TREBLE_COMPATIBILITY_CHECK=$OF_NO_TREBLE_COMPATIBILITY_CHECK"
-
-          grep -R "OF_NO_TREBLE_COMPATIBILITY_CHECK" bootable/recovery vendor/recovery 2>/dev/null
-
-          echo "===== LUNCH ====="
-
-          lunch omni_OP4C7D-eng
+          lunch twrp_OP4C7D-eng
 
           mka adbd recoveryimage
 
