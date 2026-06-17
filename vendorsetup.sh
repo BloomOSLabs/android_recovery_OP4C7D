@@ -11,7 +11,7 @@ export FOX_MAINTAINER_PATCH_VERSION=1
 export OF_USE_LEGACY_BATTERY_SERVICES=1
 
 # Flashlight
-export OF_FL_PATH1="/sys/class/leds/flashlight/brightness"
+export OF_FL_PATH1="/sys/class/leds/flashlight"
 
 # Timezone
 OF_DEFAULT_TIMEZONE="IST-5:30"
