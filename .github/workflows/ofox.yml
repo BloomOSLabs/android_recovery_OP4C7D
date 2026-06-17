@@ -136,6 +136,8 @@ jobs:
           </manifest>
           EOF
 
+          repo sync device/oppo/OP4C7D
+
       - name: Setup CCache
         run: |
           export USE_CCACHE=1
