@@ -45,7 +45,6 @@ jobs:
           sudo apt install -y \
             git \
             curl \
-            python3 \
             bc \
             bison \
             build-essential \
@@ -56,12 +55,8 @@ jobs:
             gnupg \
             gperf \
             imagemagick \
-            lib32ncurses5-dev \
-            lib32readline-dev \
-            lib32z1-dev \
             liblz4-tool \
-            libncurses5-dev \
-            libsdl1.2-dev \
+            libncurses-dev \
             libssl-dev \
             libxml2 \
             libxml2-utils \
@@ -74,7 +69,9 @@ jobs:
             zip \
             zlib1g-dev \
             openjdk-11-jdk \
-            wget
+            wget \
+            python3 \
+            python-is-python3
 
           sudo update-alternatives --set java \
             /usr/lib/jvm/java-11-openjdk-amd64/bin/java
