@@ -142,7 +142,7 @@ jobs:
         run: |
           cd android
 
-          cp maintainer.png bootable/recovery/gui/theme/portrait_hdpi/images/Default/About
+          cp device/oppo/OP4C7D/maintainer.png bootable/recovery/gui/theme/portrait_hdpi/images/Default/About
 
       - name: Setup CCache
         run: |
