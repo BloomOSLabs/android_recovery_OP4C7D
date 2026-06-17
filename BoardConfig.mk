@@ -99,13 +99,6 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 # Properties
 TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 
-# Compatibility Matrix
-# DEVICE_MATRIX_FILE += $(DEVICE_PATH)/compatibility_matrix.xml
-
-# Manifest
-# DEVICE_MANIFEST_FILE += $(DEVICE_PATH)/manifest.xml
-
-
 # TWRP
 TW_THEME := portrait_hdpi
 TW_INPUT_BLACKLIST := "hbtp_vm"
@@ -121,18 +114,6 @@ TW_NO_BATT_PERCENT := false
 TW_EXCLUDE_TWRPAPP := true
 TW_EXCLUDE_SUPERSU := true
 TW_SKIP_COMPATIBILITY_CHECK := true
-
-# Disables the strict Treble compatibility matrix check during sideload
-TW_EXCLUDE_TREBLE_TESTS := true
-# Prevents the recovery from checking standard zip compatibility zip structures
-TW_NO_TREBLE_COMPATIBILITY_CHECK := true
-
-
-# OrangeFox
-FOX_VANILLA_BUILD := 1
-OF_NO_ADDITIONAL_MIUI_PROPS_CHECK := 1
-OF_TWRP_COMPATIBILITY_MODE := 1
-OF_FIX_OTA_UPDATE_MANUAL_FLASH_ERROR := 1
 
 # Crypto
 TW_INCLUDE_CRYPTO := true

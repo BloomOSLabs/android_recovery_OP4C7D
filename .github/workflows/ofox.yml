@@ -199,14 +199,17 @@ jobs:
           echo "===== AFTER ====="
 
           echo "===== VENDORSETUP ====="
-          env | grep FOX
-
+          
           source device/oppo/OP4C7D/vendorsetup.sh
+          
+          env | grep FOX
+          env | grep OF
 
-          export OF_NO_TREBLE_COMPATIBILITY_CHECK=1
+          echo "OF_NO_TREBLE_COMPATIBILITY_CHECK=$OF_NO_TREBLE_COMPATIBILITY_CHECK"
+
+          grep -R "OF_NO_TREBLE_COMPATIBILITY_CHECK" bootable/recovery vendor/recovery 2>/dev/null
 
           echo "===== LUNCH ====="
-          env | grep FOX
 
           lunch omni_OP4C7D-eng
 
