@@ -155,11 +155,19 @@ jobs:
           export USE_CCACHE=1
           export CCACHE_EXEC=$(which ccache)
 
+          set +e
+          
           source build/envsetup.sh
-
+          echo "envsetup=$?"
+          
+          ls -la device/oppo
+          ls -la device/oppo/OP4C7D
+          
           lunch twrp_OP4C7D-eng
-
+          echo "lunch=$?"
+          
           mka adbd recoveryimage
+          echo "mka=$?"
 
       - name: Verify Output
         run: |
