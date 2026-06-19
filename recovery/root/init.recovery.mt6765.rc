@@ -14,7 +14,7 @@ on early-init
 on init
 
     export PATH /sbin:/system/bin
-    export LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
+    export LD_LIBRARY_PATH /sbin
 
     mkdir /vendor 0755 root root
     mkdir /vendor/bin 0755 root root
@@ -52,18 +52,21 @@ service servicemanager /sbin/servicemanager
     seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
 service keymaster-3-0 /vendor/bin/hw/android.hardware.keymaster@3.0-service
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
 service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oppo.hardware.cryptoeng@1.0-service
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
     user root
     group root drmrpc
     disabled
