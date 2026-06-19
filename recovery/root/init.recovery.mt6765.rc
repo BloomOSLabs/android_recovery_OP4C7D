@@ -14,7 +14,7 @@ on early-init
 on init
 
     export PATH /sbin:/system/bin
-    export LD_LIBRARY_PATH /sbin:/system/lib:/system/lib64:/vendor/lib:/vendor/lib64:/vendor/lib64/hw
+    export LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
 
     mkdir /vendor 0755 root root
     mkdir /vendor/bin 0755 root root
@@ -22,11 +22,11 @@ on init
     mkdir /vendor/lib64 0755 root root
     mkdir /vendor/lib64/hw 0755 root root
     mkdir /vendor/app 0755 root root
-
-    symlink /vendor/manifest.xml /system_root/system/manifest.xml
-    symlink /sbin/keystore.mt6765.so /vendor/lib64/hw/keystore.mt6765.so
-    symlink /sbin/gatekeeper.mt6765.so /vendor/lib64/hw/gatekeeper.mt6765.so
-    symlink /sbin/mcRegistry /vendor/app/mcRegistry
+    mkdir /vendor/etc 0755 root root
+    mkdir /vendor/etc/init 0755 root root
+    mkdir /vendor/etc/permissions 0755 root root
+    mkdir /vendor/lib 0755 root root
+    mkdir /vendor/lib/hw 0755 root root
 
     write /sys/class/graphics/fb0/blank 0
 
@@ -51,15 +51,21 @@ service servicemanager /sbin/servicemanager
     disabled
     seclabel u:r:recovery:s0
 
-service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
+service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
+service keymaster-3-0 /vendor/bin/hw/android.hardware.keymaster@3.0-service
     user root
     group root
+    disabled
+    seclabel u:r:recovery:s0
+
+service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oppo.hardware.cryptoeng@1.0-service
+    user root
+    group root drmrpc
     disabled
     seclabel u:r:recovery:s0
 
@@ -69,6 +75,7 @@ on property:crypto.ready=0
     stop servicemanager
 
 on property:vendor.sys.listeners.registered=true
+    start hal_cryptoeng_oppo
     start keymaster-3-0
     start gatekeeper-1-0
     start servicemanager
