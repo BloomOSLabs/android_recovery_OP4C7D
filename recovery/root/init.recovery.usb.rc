@@ -27,7 +27,7 @@ on property:sys.usb.config=none
     write /sys/devices/platform/mt_usb/saving 0
     setprop sys.usb.state ${sys.usb.config}
 
-on property:ro.debuggable=0
+on property:ro.debuggable=1
     # distinguish USB shoulde connect or not, i.e. CDP vs SDP
     write /sys/class/udc/musb-hdrc/device/cmode 2
     # set charging free due to it wait for USB activation

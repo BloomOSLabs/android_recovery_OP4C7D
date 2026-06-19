@@ -14,7 +14,7 @@ on early-init
 on init
 
     export PATH /sbin:/system/bin
-    export LD_LIBRARY_PATH /sbin
+    export LD_LIBRARY_PATH /sbin:/system/lib:/system/lib64:/vendor/lib:/vendor/lib64:/vendor/lib64/hw
 
     mkdir /vendor 0755 root root
     mkdir /vendor/bin 0755 root root

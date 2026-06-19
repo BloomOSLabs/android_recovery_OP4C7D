@@ -11,10 +11,12 @@ export FOX_MAINTAINER_PATCH_VERSION=1
 export OF_USE_LEGACY_BATTERY_SERVICES=1
 
 # Flashlight
-export OF_FL_PATH1="/sys/class/leds/flashlight"
+# export OF_FL_PATH1="/sys/class/leds/flashlight"
+# Disable flashlight
+export OF_FLASHLIGHT_ENABLE=0
 
 # Timezone
-OF_DEFAULT_TIMEZONE="UTC-5:30"
+OF_DEFAULT_TIMEZONE="UTC+5"
 
 # Treble
 export OF_NO_TREBLE_COMPATIBILITY_CHECK=1
