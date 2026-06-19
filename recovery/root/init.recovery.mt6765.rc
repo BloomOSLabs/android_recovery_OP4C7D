@@ -51,6 +51,12 @@ service servicemanager /sbin/servicemanager
     disabled
     seclabel u:r:recovery:s0
 
+service mobicore /vendor/bin/mcDriverDaemon --P1 /vendor/app/mcRegistry
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
     user root
@@ -77,11 +83,11 @@ on property:crypto.ready=0
     stop gatekeeper-1-0
     stop servicemanager
 
-on property:vendor.sys.listeners.registered=true
+on property:hwservicemanager.ready=true
+    start mobicore
     start hal_cryptoeng_oppo
     start keymaster-3-0
     start gatekeeper-1-0
-    start servicemanager
     
 on post-fs
     symlink /dev/block/sda /dev/block/mmcblk0boot0
