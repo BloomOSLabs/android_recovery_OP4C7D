@@ -51,32 +51,32 @@ service servicemanager /sbin/servicemanager
     disabled
     seclabel u:r:recovery:s0
 
-service mobicore /vendor/bin/mcDriverDaemon --P1 /vendor/app/mcRegistry
+service mobicore /sbin/mcDriverDaemon --P1 /sbin/mcRegistry
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /sbin/android.hardware.gatekeeper@1.0-service
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
+    setenv LD_LIBRARY_PATH /sbin
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
 service keymaster-3-0 /sbin/android.hardware.keymaster@3.0-service
-    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
+    setenv LD_LIBRARY_PATH /sbin
     user root
     group root
     disabled
     seclabel u:r:recovery:s0
 
-#service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oppo.hardware.cryptoeng@1.0-service
-#	setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/vendor/lib:/vendor/lib/hw:/sbin
-#	user root
-#	group root drmrpc
-#	disabled
-#	seclabel u:r:recovery:s0
+service hal_cryptoeng_oppo /vendor/bin/hw/vendor.oppo.hardware.cryptoeng@1.0-service
+	setenv LD_LIBRARY_PATH /sbin
+	user root
+	group root drmrpc
+	disabled
+	seclabel u:r:recovery:s0
 
 on property:crypto.ready=0
     stop keymaster-3-0

@@ -16,7 +16,16 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/keystore.mt6765.so:root/sbin/keystore.mt6765.so \
     $(LOCAL_PATH)/recovery/root/sbin/libkeymaster3device.so:root/sbin/libkeymaster3device.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.gatekeeper@1.0.so:root/sbin/android.hardware.gatekeeper@1.0.so \
-    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0.so:root/sbin/android.hardware.keymaster@3.0.so
+    $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0.so:root/sbin/android.hardware.keymaster@3.0.so \
+    $(LOCAL_PATH)/recovery/root/sbin/libhwbinder.so:root/sbin/libhwbinder.so \
+    $(LOCAL_PATH)/recovery/root/sbin/mcDriverDaemon:root/sbin/mcDriverDaemon \
+    $(LOCAL_PATH)/recovery/root/sbin/mcRegistry:root/sbin/mcRegistry \
+    $(LOCAL_PATH)/recovery/root/sbin/libMcClient.so:root/sbin/libMcClient.so \
+    $(LOCAL_PATH)/recovery/root/sbin/libTEECommon.so:root/sbin/libTEECommon.so \
+    $(LOCAL_PATH)/recovery/root/sbin/libtrustonic_keybox_ca.so:root/sbin/libtrustonic_keybox_ca.so \
+    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.commondcs@1.0.so:root/sbin/vendor.oppo.hardware.commondcs@1.0.so \
+    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0.so:root/sbin/vendor.oppo.hardware.cryptoeng@1.0.so \
+    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/vendor/app,root/vendor/app)
