@@ -19,7 +19,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0.so:root/sbin/android.hardware.keymaster@3.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/libhwbinder.so:root/sbin/libhwbinder.so \
     $(LOCAL_PATH)/recovery/root/sbin/mcDriverDaemon:root/sbin/mcDriverDaemon \
-    $(LOCAL_PATH)/recovery/root/sbin/mcRegistry:root/sbin/mcRegistry \
     $(LOCAL_PATH)/recovery/root/sbin/libMcClient.so:root/sbin/libMcClient.so \
     $(LOCAL_PATH)/recovery/root/sbin/libTEECommon.so:root/sbin/libTEECommon.so \
     $(LOCAL_PATH)/recovery/root/sbin/libtrustonic_keybox_ca.so:root/sbin/libtrustonic_keybox_ca.so \
