@@ -25,13 +25,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.commondcs@1.0.so:root/sbin/vendor.oppo.hardware.commondcs@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0.so:root/sbin/vendor.oppo.hardware.cryptoeng@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service \
-    $(LOCAL_PATH)/recovery/root/sbin/libcutils.so:root/sbin/libcutils.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libbase.so:root/sbin/libbase.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libutils.so:root/sbin/libutils.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libhardware.so:root/sbin/libhardware.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libhidlbase.so:root/sbin/libhidlbase.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libhidltransport.so:root/sbin/libhidltransport.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libbinder.so:root/sbin/libbinder.so
+    $(LOCAL_PATH)/recovery/root/sbin/libcutils.so:root/sbin/libcutils.so
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/vendor/app,root/vendor/app)
