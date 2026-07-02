@@ -7,7 +7,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/system.prop:system/system.prop \
     $(LOCAL_PATH)/rootdir/vendor/build.prop:root/vendor/build.prop \
     $(LOCAL_PATH)/rootdir/ueventd.mt6765.rc:root/ueventd.mt6765.rc \
-    $(LOCAL_PATH)/recovery/root/sbin/libpuresoftkeymasterdevice.so:root/sbin/libpuresoftkeymasterdevice.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.gatekeeper@1.0-service:root/sbin/android.hardware.gatekeeper@1.0-service \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0-service:root/sbin/android.hardware.keymaster@3.0-service \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.gatekeeper@1.0-impl.so:root/sbin/android.hardware.gatekeeper@1.0-impl.so \
@@ -17,15 +16,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/sbin/libkeymaster3device.so:root/sbin/libkeymaster3device.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.gatekeeper@1.0.so:root/sbin/android.hardware.gatekeeper@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/android.hardware.keymaster@3.0.so:root/sbin/android.hardware.keymaster@3.0.so \
-    $(LOCAL_PATH)/recovery/root/sbin/libhwbinder.so:root/sbin/libhwbinder.so \
     $(LOCAL_PATH)/recovery/root/sbin/mcDriverDaemon:root/sbin/mcDriverDaemon \
     $(LOCAL_PATH)/recovery/root/sbin/libMcClient.so:root/sbin/libMcClient.so \
     $(LOCAL_PATH)/recovery/root/sbin/libTEECommon.so:root/sbin/libTEECommon.so \
     $(LOCAL_PATH)/recovery/root/sbin/libtrustonic_keybox_ca.so:root/sbin/libtrustonic_keybox_ca.so \
     $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.commondcs@1.0.so:root/sbin/vendor.oppo.hardware.commondcs@1.0.so \
     $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0.so:root/sbin/vendor.oppo.hardware.cryptoeng@1.0.so \
-    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service \
-    $(LOCAL_PATH)/recovery/root/sbin/libcutils.so:root/sbin/libcutils.so
+    $(LOCAL_PATH)/recovery/root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service:root/sbin/vendor.oppo.hardware.cryptoeng@1.0-service
 
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/vendor/app,root/vendor/app)
