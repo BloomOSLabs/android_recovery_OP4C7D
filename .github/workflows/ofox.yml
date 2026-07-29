@@ -188,7 +188,7 @@ jobs:
       - name: Upload Recovery Image
         uses: actions/upload-artifact@v4
         with:
-          name: recoveryimage-${{ env.DEVICE_CODENAME }}
+          name: OrangeFox-12.0_1-${{ env.DEVICE_CODENAME }}
           path: |
             android/out/ofox/target/product/${{ env.DEVICE_CODENAME }}/recovery.img
             android/out/ofox/target/product/${{ env.DEVICE_CODENAME }}/ramdisk-recovery.img
